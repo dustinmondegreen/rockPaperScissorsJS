@@ -29,13 +29,23 @@ function playRound(playerChoice, computerChoice){
     }
 }
 
-function playGame(){
-    for(let i = 0; i<5; i++){
-        const playerChoice = getInput();
-        const computerChoice = getComputerChoice();
-        console.log(playRound(playerChoice, computerChoice));
-        console.log(`Player: ${playerTally} | Computer: ${computerTally} `);
-    }
-}
 
-playGame();
+const buttons = document.querySelectorAll("button");
+const container = document.querySelector("#container");
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const playerChoice = button.textContent;
+        const computerChoice = getComputerChoice();
+        const winnerText = document.createElement("div");
+        const result = playRound(playerChoice, computerChoice);
+        winnerText.textContent = result;
+        container.appendChild(winnerText);
+        if(computerTally === 5){
+            winnerText.textContent = "Computer Wins!."
+        }else if(playerTally === 5){
+            winnerText.textContent = "Player Wins!."
+        }
+        container.appendChild(winnerText);
+    })
+});
